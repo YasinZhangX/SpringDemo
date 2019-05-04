@@ -27,14 +27,14 @@ public class GreetingControllerTest {
 
     @Test
     public void getGreeting() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/greeting").accept(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.get("/greetingHtml").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().string(containsString("Hello, World!")));
     }
 
     @Test
     public void getGreetingName() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/greeting?name=yasin").accept(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.get("/greetingHtml?name=yasin").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().string(containsString("Hello, yasin!")));
     }
