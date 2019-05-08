@@ -43,6 +43,7 @@ target/
 *.iws
 
 # temp file
+/out
 *.log
 *.cache
 *.diff
