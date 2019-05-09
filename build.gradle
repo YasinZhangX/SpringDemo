@@ -33,6 +33,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")   // production-grade service
     testCompile("org.springframework.boot:spring-boot-starter-test")   // Spring unit tests, enable mockmvc
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")  // thymeleaf Spring starter
+    compile("org.springframework.boot:spring-boot-starter-cache")      // Spring Boot Cache
     compile("org.springframework.boot:spring-boot-devtools")
     testCompile("junit:junit")
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.8'
