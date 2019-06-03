@@ -1,34 +1,29 @@
 package hello;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Yasin Zhang
  */
 @Component
-@Order(1)
 public class AppRunner implements CommandLineRunner {
 
-    private static final Logger logger = LoggerFactory.getLogger(AppRunner.class);
+    private final RabbitTemplate rabbitTemplate;
+    private final Receiver receiver;
 
-    private final BookRepository bookRepository;
-
-    public AppRunner(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
+    public AppRunner(Receiver receiver, RabbitTemplate rabbitTemplate) {
+        this.receiver = receiver;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     @Override
     public void run(String... args) throws Exception {
-        logger.info(".... Fetching books");
-        logger.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
-        logger.info("isbn-4567 -->" + bookRepository.getByIsbn("isbn-4567"));
-        logger.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
-        logger.info("isbn-4567 -->" + bookRepository.getByIsbn("isbn-4567"));
-        logger.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
-        logger.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
+        System.out.println("Sending message...");
+        rabbitTemplate.convertAndSend(Application.topicExchangeName, "foo.bar.baz", "Hello from RabbitMQ!");
+        receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
     }
 }
