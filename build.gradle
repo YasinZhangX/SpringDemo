@@ -28,14 +28,22 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+}
+
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")        // springMVC
     compile("org.springframework.boot:spring-boot-starter-actuator")   // production-grade service
     testCompile("org.springframework.boot:spring-boot-starter-test")   // Spring unit tests, enable mockmvc
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")  // thymeleaf Spring starter
     compile("org.springframework.boot:spring-boot-starter-cache")      // Spring Boot Cache
-    compile("org.springframework.boot:spring-boot-starter-amqp")       // amqp
-    compile("org.springframework.boot:spring-boot-devtools")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")   // jpa
+    compile("com.h2database:h2")                                       // jpa database
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
     testCompile("junit:junit")
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.8'
 }
